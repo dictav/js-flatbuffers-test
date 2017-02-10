@@ -1,0 +1,31 @@
+{
+  "name": "flatbuffers-test",
+  "version": "1.5.0",
+  "description": "flatbuffers test",
+  "main": "index.js",
+  "scripts": {
+    "flatc": "flatc -s --gen-mutable monster_test.fbs && flatc -b monster_test.fbs unicode_test.json",
+    "build": "npm run build:wp && npm run build:bw && npm run build:ru",
+    "build:wp": "webpack",
+    "build:bw": "browserify --no-builtins JavaScriptTest.js -o bundle_bw.js",
+    "build:ru": "rollup -c",
+    "pretest": "npm run flatc && npm run build",
+    "test": "npm run test:node && npm run test:wp && npm run test:bw && npm run test:ru",
+    "test:node": "node JavaScriptTest.js",
+    "test:wp": "node bundle_wp.js",
+    "test:bw": "node bundle_bw.js",
+    "test:ru": "node bundle_ru.js"
+  },
+  "author": "dictav <dictav@gmail.com>",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "dependencies": {
+    "flatbuffers": "^1.5.0"
+  },
+  "devDependencies": {
+    "browserify": "^14.0.0",
+    "rollup": "^0.41.4",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-replace": "^1.1.1",
+    "webpack": "^2.2.1"
+  }
+}
