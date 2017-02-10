@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "flatc": "flatc -s --gen-mutable monster_test.fbs && flatc -b monster_test.fbs unicode_test.json",
+    "flow": "flow",
     "build": "npm run build:wp && npm run build:bw && npm run build:ru",
     "build:wp": "webpack",
     "build:bw": "browserify --no-builtins JavaScriptTest.js -o bundle_bw.js",
     "build:ru": "rollup -c",
-    "pretest": "npm run flatc && npm run build",
+    "pretest": "npm run flatc && npm run build && npm run flow",
     "test": "npm run test:node && npm run test:wp && npm run test:bw && npm run test:ru",
     "test:node": "node JavaScriptTest.js",
     "test:wp": "node bundle_wp.js",
@@ -23,6 +24,8 @@
   },
   "devDependencies": {
     "browserify": "^14.0.0",
+    "flow-bin": "^0.38.0",
+    "mkdirp": "^0.5.1",
     "rollup": "^0.41.4",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-replace": "^1.1.1",

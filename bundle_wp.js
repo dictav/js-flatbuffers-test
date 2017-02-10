@@ -2797,6 +2797,7 @@ module.exports = require("fs");
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
+// @flow
 // Run this using JavaScriptTest.sh
 var assert = __webpack_require__(2);
 var fs = __webpack_require__(3);
@@ -2861,7 +2862,7 @@ function main() {
   // parser may serialize in a slightly different order than the above
   // JavaScript code. They are functionally equivalent though.
 
-  fs.writeFileSync('monsterdata_javascript_wire.mon', new Buffer(fbb.asUint8Array()));
+  fs.writeFileSync('monsterdata_javascript_wire.mon', Buffer.from(fbb.asUint8Array()));
 
   // Tests mutation first.  This will verify that we did not trample any other
   // part of the byte buffer.
@@ -3095,7 +3096,7 @@ function fuzzTest1() {
     for (var f = 0; f < fields_per_object; f++) {
       var choice = lcg_rand() % test_values_max;
       switch (choice) {
-        case 0:  builder.addFieldInt8(f, bool_val,   0); break;
+        case 0:  builder.addFieldInt8(f, (bool_val ? 1 : 0),   0); break;
         case 1:  builder.addFieldInt8(f, char_val,   0); break;
         case 2:  builder.addFieldInt8(f, uchar_val,  0); break;
         case 3:  builder.addFieldInt16(f, short_val,  0); break;
